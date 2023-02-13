@@ -22,9 +22,6 @@
   "repository": "github:tasoskakour/react-use-oauth2",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "dependencies": {
-    "use-local-storage-state": "^18.1.0"
-  },
   "scripts": {
     "build": "rollup -c",
     "example": "rollup -c rollup.config.example.js -w",

@@ -1,5 +1,4 @@
 import { useCallback, useRef, useState } from 'react';
-import useLocalStorageState from 'use-local-storage-state';
 import {
 	DEFAULT_EXCHANGE_CODE_FOR_TOKEN_METHOD,
 	OAUTH_RESPONSE,
@@ -142,12 +141,6 @@ const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
 	const popupRef = useRef<Window | null>();
 	const intervalRef = useRef<any>();
 	const [{ loading, error }, setUI] = useState({ loading: false, error: null });
-	const [data, setData] = useLocalStorageState<State>(
-		`${responseType}-${authorizeUrl}-${clientId}-${scope}`,
-		{
-			defaultValue: null,
-		}
-	);
 
 	const exchangeCodeForTokenServerURL =
 		responseType === 'code' && props.exchangeCodeForTokenServerURL;
@@ -214,7 +207,6 @@ const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
 						loading: false,
 						error: null,
 					});
-					setData(payload);
 					if (onSuccess) {
 						await onSuccess(payload);
 					}
@@ -264,10 +256,9 @@ const useOAuth2 = <TData = AuthTokenPayload>(props: Oauth2Props<TData>) => {
 		onSuccess,
 		onError,
 		setUI,
-		setData,
 	]);
 
-	return { data, loading, error, getAuth };
+	return { loading, error, getAuth };
 };
 
 export default useOAuth2;
